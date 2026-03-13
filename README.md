@@ -32,11 +32,11 @@ At a basic level, there are only two types of AI work: **finding an exact answer
 ## 📂 File Structure: Full vs. Compact Versions
 The `prompts/` folder contains 4 files. Choose the one that fits your workflow:
 
-* 🇬🇧 **[re-think_v1_en.md](prompts/re-think_v1_en.md)** / 🇷🇺 **[re-think_v1_ru.md](prompts/re-think_v1_ru.md)** (Full versions)
+* 🇬🇧 **[re-think_v1_en.md](prompts/re-think_v1_en.md)** / 🇷🇺 **[re-think_v1_ru.md](prompts/re-think_v1_ru.md)** / 🇨🇳 **[re-think_v1_zh.md](prompts/re-think_v1_zh.md)** (Full versions)
   **For whom:** Powerful models (Claude 3.5 Sonnet/Opus, GPT-4o, Gemini 1.5 Pro).
   **Feature:** Contains detailed formulations and full "reasoning equations" with logic descriptions. Powerful models read this structure and produce phenomenally deep answers. Perfect as the core of specialized Custom Agents.
 
-* 🇬🇧 **[re-think_v1_en_compact.md](prompts/re-think_v1_en_compact.md)** / 🇷🇺 **[re-think_v1_ru_compact.md](prompts/re-think_v1_ru_compact.md)** (Compact versions)
+* 🇬🇧 **[re-think_v1_en_compact.md](prompts/re-think_v1_en_compact.md)** / 🇷🇺 **[re-think_v1_ru_compact.md](prompts/re-think_v1_ru_compact.md)** / 🇨🇳 **[re-think_v1_zh_compact.md](prompts/re-think_v1_zh_compact.md)** (Compact versions)
   **For whom:** API usage, local models (Llama 3, Mistral), or strict token economy.
   **Feature:** Explanations are cut out; only harsh, dry imperatives and highly compressed formulas remain ("Do this. Violation = fatal hallucination"). Runs faster, minimizes cognitive load on the model.
 
