@@ -4,7 +4,7 @@
 
 [English version](README.md) | [Русская версия](README_ru.md) | [中文说明](README_zh.md)
 
-`re!think it` 是一套用于 LLM 注意力管理的系统级架构。该协议旨在防止长对话中的“注意力漂移”（Attention Drift），在生成响应前强制执行逻辑验证，并驱动模型产出去同质化（De-homogenized）的高质量洞察。
+`re!think it` 是一套用于 LLM 注意力管理的系统级架构。该协议旨在防止长对话中的“注意力漂移”（Attention Drift），在生成响应前强制执行逻辑验证，并驱动模型输出高质量的非同质化内容（De-homogenized output）。
 
 ## ⚠️ 为什么常规提示词（Prompts）会失效？
 现代前沿模型（如 GPT-4o, Claude 3.5, 以及国产的 DeepSeek, Qwen）都有一个共同的架构副产物：由于过度 RLHF 对齐，它们被训练出了“讨好型人格”（Sycophancy）。
@@ -28,14 +28,14 @@ AI 只有两类核心工作：**寻找精确答案**和**发散创意选项**。
 ---
 
 ## 📂 文件结构：完整版 vs 精简版
-`prompts/` 文件夹包含以下文件：
+以下是各语言版本的文件列表：
 
 * 🇨🇳 **[re-think_v1_zh.md](prompts/re-think_v1_zh.md)** / 🇬🇧 **[re-think_v1_en.md](prompts/re-think_v1_en.md)** / 🇷🇺 **[re-think_v1_ru.md](prompts/re-think_v1_ru.md)** (完整版)
   * **适用对象：** 大参数量基座模型（Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro, DeepSeek-V3）。
   * **特点：** 包含详细的逻辑描述、完整的推理方程与护栏规则。
 
 * 🇨🇳 **[re-think_v1_zh_compact.md](prompts/re-think_v1_zh_compact.md)** / 🇬🇧 **[re-think_v1_en_compact.md](prompts/re-think_v1_en_compact.md)** / 🇷🇺 **[re-think_v1_ru_compact.md](prompts/re-think_v1_ru_compact.md)** (精简版)
-  * **适用对象：** API 调用、本地端侧部署模型（Llama 3, Qwen-2.5）或对 Token 成本/上下文窗口严格敏感的场景。
+  * **适用对象：** API 调用、端侧部署模型（Llama 3, Qwen-2.5）或对 Token 消耗/上下文窗口严格敏感的场景。
   * **特点：** 剥离了所有的解释性文本，仅保留硬性执行指令和压缩公式。
 
 ---
