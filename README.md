@@ -6,6 +6,8 @@
 
 `re!think it` is a system architecture for LLM attention management. The protocol protects against context loss during long conversations (Attention Drift), forcefully verifies the model's logic before generating a response, and compels it to produce non-cliché ideas.
 
+📖 **Read the story:** [re!think it: A ~1,300-Token Prompt That Teaches LLMs to Reason](ESSAY_en.md) *(An essay sharing thoughts on the resulting product and why it works).*
+
 ## ⚠️ Why do standard prompts stop working?
 Modern LLMs (GPT-4o, Claude 3.5, Gemini, DeepSeek) share a fundamental vulnerability: they are trained to be "polite" and "helpful" (the RLHF effect). 
 * When you write a prompt in plain human language (*"be a strict critic, do not invent facts"*), the model treats it as a polite request, not a hard law. 
