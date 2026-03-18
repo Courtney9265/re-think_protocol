@@ -6,6 +6,8 @@
 
 `re!think it` 是一套用于 LLM 注意力管理的系统级架构。该协议旨在防止长对话中的“注意力漂移”（Attention Drift），在生成响应前强制执行逻辑验证，并驱动模型输出高质量的非同质化内容（De-homogenized output）。
 
+📖 **延伸阅读：** [re!think it: A ~1,300-Token Prompt That Teaches LLMs to Reason](ESSAY_en.md) *(英文随笔，探讨这套协议的设计思路与底层逻辑)。*
+
 ## ⚠️ 为什么常规提示词（Prompts）会失效？
 现代前沿模型（如 GPT-4o, Claude 3.5, 以及国产的 DeepSeek, Qwen）都有一个共同的架构副产物：由于过度 RLHF 对齐，它们被训练出了“讨好型人格”（Sycophancy）。
 * 当你用纯自然语言书写提示词时，模型会将其视为一种“软性建议”，而非“硬性约束”。
