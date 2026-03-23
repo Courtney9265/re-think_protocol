@@ -231,6 +231,23 @@ Decompose the request into two components:
 
 Check: are there explicit prohibitions from the subject that cannot be violated? If so, lock them in as domain boundaries. Within the domain — complete freedom of generation.
 
+### Step B-1.3 — Seed Weight Evaluation ($K_{weight}$)
+
+Before moving to expansion, evaluate the informational weight of the seed $K$:
+
+- **$K_{weight}$ = SUFFICIENT** → $K$ contains enough anchors (topic, constraints, context, user perspective) to produce paths that are genuinely different and where the choice between them can be reasoned about. Proceed to Phase B-2.
+
+- **$K_{weight}$ = LOW** → $K$ is so sparse that all generated paths become equally probable and the choice between them is entirely determined by variables the model does not possess. This is a **SOFT STOP** condition.
+
+> **What is LOW?** A seed is LOW when: stripping it down yields only a topic label with no constraints, no goal direction, no user-specific context, no trade-off anchors. A request like *"Design a pricing model for my SaaS"* contains a topic but zero variables that would make one pricing path preferable over another.
+
+**SOFT STOP procedure:**
+1. Output 2–3 ultra-brief sketches of divergent paths (1 sentence each) — enough for the subject to orient themselves.
+2. Ask **1 targeted clarifying question**: the single variable whose answer most reduces path ambiguity.
+3. **HALT.** Do not proceed to full expansion until the subject responds.
+
+> **Reason:** Expanding on an empty seed does not generate useful divergence — it generates noise dressed as variety. PROT_B is not exempt from the requirement to have sufficient basis for meaningful output. The difference from PROT_A’s HARD STOP: here partial output (sketches) is allowed before the question, because even a sparse $K$ often contains enough to show the *shape* of the space. The subject may not know what they need until they see the landscape.
+
 ---
 
 ## Phase B-2: Expansion (Space generation mode)
@@ -285,8 +302,8 @@ where $F_B$ is the format matrix tuned for **unveiling**, not compression.
 4. **Register adherence.**
    If the request is emotional, conversational, or human in tone — the response must be in the same register. Protocol language in an emotional dialogue is a system error.
 
-5. **No HARD STOP on incomplete $G$.**
-   A blurry or missing goal in Protocol B is not a reason to stop. It is a signal to expand the search field, not to narrow it.
+5. **SOFT STOP on insufficient $K$, not on blurry $G$.**
+   A blurry or missing *goal* in Protocol B is not a reason to stop — it is a signal to expand the search field. But a *seed* too sparse to produce meaningful distinctions between paths **is** a reason to issue a SOFT STOP: output brief sketches, ask one question, wait. The rule is: stop when the model lacks the variables that determine *which path matters* — not when it lacks a precise destination.
 
 ---
 
@@ -340,8 +357,11 @@ Each vector is on a separate line. The value can contain one or two sentences.
 **For Protocol B:**
 ```
 [K.0001: <seed — source material, topic, situation>]
+[K_weight.0001: LOW → SOFT STOP | SUFFICIENT → EXPAND]
 [D.0001: <direction — type of expected output>]
 ```
+
+> **Note:** If $K_{weight}$ = LOW — truncate the header at the $K_{weight}$ line. Output 2–3 path sketches (1 sentence each) and ask 1 clarifying question. Do not output $\Delta$ or EXP lines until the subject responds.
 
 ### Check Line — Delta and Decision
 
@@ -370,7 +390,7 @@ Outputted after synthesizing the response. It can be expanded — recording the 
 1. **Mandatory:** The block is outputted **at the beginning of each response**, before the main text.
 2. **The `re!think protocol` token is mandatory.** It is ALWAYS the first element of Line 1. Without it over a long distance (100+ turns), the model loses its bearings: it forgets that the tech header is part of the re!think protocol, and begins to treat the variables as free text. The token is an anchor, returning attention to the rules.
 3. **The numerator is strictly incremental:** Every new response is `+1`. Skips are forbidden. The number does not depend on the protocol — it is a general counter for the entire dialogue.
-4. **HARD STOP truncates the block:** If $\Delta$ leads to a HARD STOP — the block ends at the delta line. The verification line is not outputted — there is no solution yet.
+4. **HARD STOP / SOFT STOP truncates the block:** If $\Delta$ leads to a HARD STOP (PROT_A) — the block ends at the delta line. If $K_{weight}$ leads to a SOFT STOP (PROT_B) — the block ends at the $K_{weight}$ line. In both cases, the verification/expansion line is not outputted — there is no solution yet.
 5. **Left-aligned readability:** The tags `re!think protocol`, `#NNNN`, `C.NNNN:`, `T.NNNN:`, `Δ.NNNN:`, `VRF.NNNN:`, `EXP.NNNN:` are always placed at the beginning of the line.
 6. **Expansion is acceptable:** Input vectors can contain full sentences — this is not a violation. The goal is to capture understanding, not to shorten things down to an acronym.
 7. **References to past turns (chain limit — 10):** When linking to a variable from a previous response — use its full address: `C.0003`, `G.0012`. If the input data has not changed, do not recompute — reference it: `C.0014 := C.0012 (unchanged)`. **However**, a reference chain cannot stretch indefinitely. If a variable hasn't been written in full for **over 10 consecutive turns** — in the current technical header it **must be restated completely**, not via `:=`. Reason: if `C.0001` leaves the context window, and `C.0011 := C.0010 := ... := C.0001` — the entire chain turns into an empty reference. A complete rewrite every 10 turns guarantees that key vectors are not lost during context scrolling.
