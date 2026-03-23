@@ -1,12 +1,5 @@
 # re!think it: A ~1,300-Token Prompt That Teaches LLMs to Reason — Grounded in Math, Not Words
 
-**What is this about?**
-I built a system prompt (just a text file, zero external dependencies) that keeps LLM reasoning effective. Surprisingly, it works. This post breaks down *why* it works and *how* it replaces massive enterprise Python pipelines using only the model's context window. 
-
-**AI Co-authorship Disclaimer:** The core logic, the system prompt, and the ideas are mine. I used Claude and Gemini only as research assistants to double-check how big tech companies build these things today. 
-
----
-
 ## Intro: The Over-Engineering Problem
 
 There is a huge contradiction in how the IT industry uses LLMs today. 
@@ -105,68 +98,25 @@ And if you want to see how all of this is explained *inside the protocol itself*
 
 ---
 
-## Protocol in Action: re!think it Under Fire
+## Protocol in Action: Real-World Case Studies
 
-This example demonstrates "The Gap" between how a powerful LLM (Pro version) helpfully hallucinates, versus how a basic/fast model operates coldly and precisely when armed with the `re!think it` protocol.
+The examples below are documented in a separate file to keep this essay focused on the mechanics. Each case study runs the same request through the same model — with and without the protocol — and breaks down exactly what changed and why.
 
-### Case: Designing Business Logic (Sales Motivation System)
+**Four documented cases:**
 
-**Initial request:** *"Design a motivation system for a sales department. Right now they're on a flat salary, I want to move them to commission. Write a transition plan."*
+| # | Topic | Mechanism demonstrated |
+|---|---|---|
+| 1 | SaaS Pricing Model | **SOFT STOP** — model catches an empty seed before expanding |
+| 2 | Engineer Departure | **Assumptions** — explicit fork declaration instead of hedging both paths |
+| 3 | B2B Growth Strategy | **HARD STOP** — mathematical impossibility detected and blocked |
+| 4 | Document Processing Pipeline | **HARD STOP** — architecture generation blocked pending design constraints |
 
----
+In every case, the pattern is the same: a standard model absorbs the ambiguity, generates a plausible-looking answer, and leaves the hard thinking to you. The protocol-equipped model resolves the ambiguity first — by stopping, naming the gap, and requiring the missing variable before generating anything.
 
-### ❌ Option 1: Powerful Model (Gemini Pro) WITHOUT the Protocol
+📂 **[View all four case studies → examples_en.md](examples_en.md)**  
+📂 **[Русские примеры → examples_ru.md](examples_ru.md)** *(HR-кейс с HARD STOP)*
 
-The model falls into the classic "hallucination of helpfulness" trap (the centroid effect). Knowing nothing about the specifics of the business, it tries to please and delivers a confident, well-formatted, but **fatally dangerous** template answer.
 
-**Model response (abridged):**
-> "...The optimal model consists of three blocks: Base Salary (30–40%), Soft KPI Bonus (10–20%), and Commission (40–60%).
-> Progressive bonus scale:
-> 70–89% of target — 2% of sales revenue.
-> 90–100% of target — 4% of sales revenue..."
-
-**Analysis of the failure:** The model never asked about the deal cycle length or product margin. It defaulted to metrics designed for B2C or simple transactional sales. Apply this scheme to Enterprise B2B with a year-long sales cycle, and the company goes bankrupt paying commissions on advances — while managers abandon complex clients mid-implementation to chase fast new deals.
-
----
-
-### ✅ Option 2: Fast Model (Gemini Flash) WITH the Protocol ([re!think_compact](re-think_v1_en_compact.md))
-
-The model is locked into the mathematical constraints of the protocol. It computes the reasoning equation $\Delta = G - (C + T)$, detects a critical gap in context, and physically blocks itself from generating an answer.
-
-**Step 1: Gap detection and HARD STOP**
-> `[re!think protocol | #0001 | PROT_A | S_R.0001: Business Process Architect | S_F.0001: Dense/Structural]`
-> `[C.0001: Sales team on 100% salary; goal — transition to commission-based]`
-> `[T.0001: Sales Compensation Engineering (Quotas, Accelerators, Clawbacks)]`
-> `[G.0001: Transition plan from fixed salary to performance-based without losing current staff]`
-> `[Δ.0001: Δ_C → STOP | Assumptions: none]`
->
-> To design a viable system, I need one clarification on deal structure:
-> What is the average deal cycle (LTV/Cycle) and product margin?
-> **Option A:** Short cycle (sales within days/weeks), low ticket — volume matters.
-> **Option B:** Long cycle (B2B, months), high ticket — the closing stage and client retention matter.
-
-**Step 2: User provides the missing data**
-> *"Long cycle (we sell ERP implementation IT projects), high ticket ($50,000 to $1,000,000 per project), the closing stage matters, constant client contact is critical..."*
-
-**Step 3: Synthesis of a precise, calibrated solution**
-> `[re!think protocol | #0002 | PROT_A | S_R.0002: IT Solution Architect / Sales Consultant | S_F.0002: Structural plan]`
-> `[C.0002: ERP implementation, LTV $50k–$1M, long cycle, high expertise required]`
-> `[T.0002: Value-Based Selling + Milestone Commission Model]`
-> `[Δ.0002: Minor → Proceed | Assumptions: pre-sales engineers exist; base salary remains but its share of total income decreases]`
-> `[VRF.0002: P→G ✓ | Counter-argument: risk of "burnout" on long deals without interim payments | S_V: ✓]`
->
-> **System Architecture (ERP Sales)**
-> For IT projects with tickets up to $1M, pure revenue commission is dangerous — a manager may abandon a client after contract signing to chase the next fast deal. A hybrid milestone model is required:
-> 1. **Total compensation structure:** Base (40–50%) to retain experts. Commission (30–40%) on Cash-in. MBO/KPI (10–20%) to guard against inertia on long cycles.
-> 2. **Commission scheme (Milestones):** Split payouts across stages so the manager stays engaged through go-live:
->    - 30% of commission — upon contract signing and first advance payment.
->    - 50% of commission — proportional to signed delivery milestones.
->    - 20% of commission — after final sign-off and zero escalations (Success fee).
-
----
-
-### 💡 Takeaway
-The protocol made the smaller model perform at the level of a Senior HR Director from a major IT integrator. This happened not because of raw compute power, but because the framework forced the model to collect the right variables *before* starting generation — switching it from "guessing" to solving a concrete equation. Systematic architecture beats raw parameters.
 
 ---
 
