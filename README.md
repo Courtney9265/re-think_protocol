@@ -8,6 +8,9 @@
 
 📖 **Read the story:** [re!think it: A ~1,300-Token Prompt That Teaches LLMs to Reason](ESSAY_en.md) *(An essay sharing thoughts on the resulting product and why it works).*
 
+🧪 **See it in action:** [Real-World Examples: 4 Case Studies](examples_en.md) *(Side-by-side comparisons of LLM outputs with and without the protocol — HARD STOP, SOFT STOP, C_BYPASS, and Assumptions mechanics across business, HR, and technical domains).*
+
+
 ## ⚠️ Why do standard prompts stop working?
 Modern LLMs (GPT-4o, Claude 3.5, Gemini, DeepSeek) share a fundamental vulnerability: they are trained to be "polite" and "helpful" (the RLHF effect). 
 * When you write a prompt in plain human language (*"be a strict critic, do not invent facts"*), the model treats it as a polite request, not a hard law. 
@@ -82,6 +85,13 @@ The protocol allows you to set your own verification priorities (Synthesis Phase
 
 ### 4. Creating Custom Solution Formulas
 This protocol does not claim absolute universality. Many specific tasks don't fit the base mechanics. Using the proposed syntax as a foundation, you can invent and implement other, more precise and elegant "reasoning equations" for your unique task types.
+
+## 🏷️ Why the strange name?
+
+I chose **re!think it** for three specific reasons:
+1. The letters **RE** stand for my nickname, **Real_Egor**.
+2. Protocol triggers need to be highly unique so the LLM can anchor its attention to them effectively. A common, natural-sounding phrase would inevitably suffer from attention drift and blend into the semantic background.
+3. The **re!** prefix works as a versatile connector for a whole ecosystem of verbs (e.g., `re!act`, `re!form`, `re!frame`). In every case, it carries the core meaning of *"rethinking the action"* or *"doing the usual task, but significantly better."*
 
 ---
 
